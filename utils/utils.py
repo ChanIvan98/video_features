@@ -95,6 +95,7 @@ def sanity_check(args: Union[argparse.Namespace, DictConfig]):
     #     message = 'torchvision.read_video only supports extraction at orig fps. Remove this argument.'
     #     assert args.extraction_fps is None, message
     if args.feature_type == 'i3d':
+        print("hit")
         message = f'I3D model does not support inputs shorter than 10 timestamps. You have: {args.stack_size}'
         if args.stack_size is not None:
             assert args.stack_size >= 10, message
@@ -112,8 +113,9 @@ def sanity_check(args: Union[argparse.Namespace, DictConfig]):
     # patch_output_paths
     # preprocess paths
     subs = [args.feature_type]
-    if hasattr(args, 'model_name'):
-        subs.append(args.model_name)
+    print(subs)
+    # if hasattr(args, 'model_name'):
+    #     subs.append(args.model_name)
         # may add `finetuned_on` item
     real_output_path = args.output_path
     real_tmp_path = args.tmp_path
@@ -123,7 +125,7 @@ def sanity_check(args: Union[argparse.Namespace, DictConfig]):
         real_tmp_path = os.path.join(real_tmp_path, p.replace("/", "_"))
     args.output_path = real_output_path
     args.tmp_path = real_tmp_path
-
+    print(real_output_path)
 
 def form_list_from_user_input(
         video_paths: Union[str, ListConfig, None] = None,
